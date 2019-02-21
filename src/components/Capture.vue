@@ -11,25 +11,27 @@
           @error="onError"
           @cameras="onCameras"
           @camera-change="onCameraChange"
-          
+
         />            
       </v-card-media>
       <v-card-actions class="text-xs-center">
         <v-spacer></v-spacer>
+        <div v-show="this.devices.length > 0">
+          <select v-model="camera">
+            <option>-- Select Device --</option>
+            <option
+              v-for="device in devices"
+              :key="device.deviceId"
+              :value="device.deviceId"
+            >{{ device.label }}</option>
+          </select>
+          <v-btn fab dark large color="purple" @click="onNextDevice">
+            <v-icon dark>fa-sync-alt</v-icon>
+          </v-btn>
+        </div>
         <v-btn fab dark large color="info" @click="onCapture">
           <v-icon dark>fa-camera</v-icon>
         </v-btn>
-        <div v-show="this.devices.length > 1">
-        <v-btn  @click="onNextDevice">Switch Camera</v-btn>
-        <select v-model="camera">
-          <option>-- Select Device --</option>
-          <option
-            v-for="device in devices"
-            :key="device.deviceId"
-            :value="device.deviceId"
-          >{{ device.label }}</option>
-        </select>
-        </div>
     </v-card-actions>
     </v-card>
     <div v-show="!inCaptureMode">
