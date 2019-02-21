@@ -1,18 +1,16 @@
 <template>
   <div>
     <div v-show="inCaptureMode">
-      <v-flex xs12 mb-5>
-        <web-cam
-          ref="webcam"
-          :device-id="deviceId"
-          width="100%"
-          @started="onStarted"
-          @stopped="onStopped"
-          @error="onError"
-          @cameras="onCameras"
-          @camera-change="onCameraChange"
-        />
-      </v-flex>
+      <web-cam
+        ref="webcam"
+        :device-id="deviceId"
+        width="100%"
+        @started="onStarted"
+        @stopped="onStopped"
+        @error="onError"
+        @cameras="onCameras"
+        @camera-change="onCameraChange"
+      />
       <div>
         <select v-model="camera">
           <option>-- Select Device --</option>
@@ -23,14 +21,15 @@
           >{{ device.label }}</option>
         </select>
 
-        <v-btn color="info" @click="onCapture">Capture Photo</v-btn>
+        <v-btn color="info" @click="onCapture">
+          <v-icon></v-icon>
+        </v-btn>
         <!-- <v-btn color="success" @click="onStop">Stop Camera</v-btn>
-        <v-btn color="danger" @click="onStart">Start Camera</v-btn> -->
+        <v-btn color="danger" @click="onStart">Start Camera</v-btn>-->
         <v-btn @click="onNextDevice">Next Device</v-btn>
       </div>
     </div>
     <div v-show="!inCaptureMode">
-      <h2>Captured Image</h2>
       <figure class="figure">
         <img :src="img" class="img-responsive">
       </figure>
@@ -82,9 +81,11 @@ export default {
     onCapture() {
       this.img = this.$refs.webcam.capture();
       this.inCaptureMode = false;
+      this.$emit("image-captured", this.img);
     },
     onClearCapture() {
       this.inCaptureMode = true;
+      this.$emit("image-cleared");
     },
     onStarted(stream) {
       console.log("On Started Event", stream);
