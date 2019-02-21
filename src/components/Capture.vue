@@ -12,6 +12,12 @@
         @camera-change="onCameraChange"
       />
       <div>
+        <v-btn color="info" @click="onCapture">
+          <v-icon>fa-camera</v-icon>
+        </v-btn>
+        <!-- <v-btn color="success" @click="onStop">Stop Camera</v-btn>
+        <v-btn color="danger" @click="onStart">Start Camera</v-btn>-->
+        <v-btn @click="onNextDevice">Switch Camera</v-btn>
         <select v-model="camera">
           <option>-- Select Device --</option>
           <option
@@ -21,12 +27,6 @@
           >{{ device.label }}</option>
         </select>
 
-        <v-btn color="info" @click="onCapture">
-          <v-icon></v-icon>
-        </v-btn>
-        <!-- <v-btn color="success" @click="onStop">Stop Camera</v-btn>
-        <v-btn color="danger" @click="onStart">Start Camera</v-btn>-->
-        <v-btn @click="onNextDevice">Next Device</v-btn>
       </div>
     </div>
     <div v-show="!inCaptureMode">
