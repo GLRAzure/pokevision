@@ -1,7 +1,14 @@
 <template>
   <div>
     <div v-show="img">Image received</div>
-    <div>Your Pokemon is {{pokemonName}}</div>
+    <div v-if="topResponse">
+      <div>Your Pokemon is {{topResponse.tagName}} ({{topResponse.probabilityShort}}%)</div>
+      <div>all predictions:</div>
+      <div v-for="prediction in predictions">
+        {{ prediction.tagName }} ({{prediction.probabilityShort }}%)
+      </div>
+      </div>
+    
   </div>
 </template>
 
@@ -11,7 +18,7 @@ import { getPredictionClient } from "../azureCustomVision";
 const client = getPredictionClient(
   "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/",
   "426cf8d2-6977-41a0-8752-40465286c030",
-  "a504cd822ef2404f85e63a505d8d5f0f"
+  "e71d0537d82547179428f8a5397c4fac"
 );
 
 function dataURItoBlob(dataURI) {
@@ -34,10 +41,15 @@ function dataURItoBlob(dataURI) {
     return new Blob([ia], {type:mimeString});
 }
 
+function toRoundedPercent(inval) {
+  return Math.round(inval*10000)/100;
+}
+
 export default {
   data: function() {
     return {
-      pokemonName: null
+      topResponse: null,
+      predictions: null
     };
   },
   watch: {
@@ -46,10 +58,13 @@ export default {
       const response = await client(dataURItoBlob(newVal));
       console.log("got response", response);
       if (response.predictions && response.predictions.length) {
+        this.predictions = response.predictions
+          .sort((a,b) => b.probability - a.probability)
+          .map(p => ({ probabilityShort: toRoundedPercent(p.probability), ...p}));
         console.log("getting top response");
-        const topResponse = response.predictions.sort((a,b) => b.probability - a.probability)[0];
+        const topResponse = this.predictions[0];
         console.log("Top response:", topResponse);
-        this.pokemonName = topResponse.tagName;
+        this.topResponse = topResponse;
       }
     }
   },

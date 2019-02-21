@@ -12,7 +12,7 @@ export function getPredictionClient(predictionEndpointUri, appId, predictionKey)
     "Content-Type": "multipart/form-data"
   });
 
-  const predictionEndpointFullUri = `${predictionEndpointUri}/${appId}/image`
+  const predictionEndpointFullUri = `${predictionEndpointUri}${appId}/image`
 
   return async function predict(image) {
     const response = await fetch(
