@@ -1,23 +1,26 @@
 <template>
   <div>
-    <div v-show="inCaptureMode">
-      <web-cam
-        ref="webcam"
-        :device-id="deviceId"
-        width="100%"
-        @started="onStarted"
-        @stopped="onStopped"
-        @error="onError"
-        @cameras="onCameras"
-        @camera-change="onCameraChange"
-      />
-      <div>
-        <v-btn color="info" @click="onCapture">
-          <v-icon>fa-camera</v-icon>
+    <v-card v-show="inCaptureMode">
+      <v-card-media >
+        <web-cam
+          ref="webcam"
+          :device-id="deviceId"
+          width="100%"          
+          @started="onStarted"
+          @stopped="onStopped"
+          @error="onError"
+          @cameras="onCameras"
+          @camera-change="onCameraChange"
+          
+        />            
+      </v-card-media>
+      <v-card-actions class="text-xs-center">
+        <v-spacer></v-spacer>
+        <v-btn fab dark large color="info" @click="onCapture">
+          <v-icon dark>fa-camera</v-icon>
         </v-btn>
-        <!-- <v-btn color="success" @click="onStop">Stop Camera</v-btn>
-        <v-btn color="danger" @click="onStart">Start Camera</v-btn>-->
-        <v-btn @click="onNextDevice">Switch Camera</v-btn>
+        <div v-show="this.devices.length > 1">
+        <v-btn  @click="onNextDevice">Switch Camera</v-btn>
         <select v-model="camera">
           <option>-- Select Device --</option>
           <option
@@ -26,13 +29,10 @@
             :value="device.deviceId"
           >{{ device.label }}</option>
         </select>
-
-      </div>
-    </div>
+        </div>
+    </v-card-actions>
+    </v-card>
     <div v-show="!inCaptureMode">
-      <figure class="figure">
-        <img :src="img" class="img-responsive">
-      </figure>
       <v-btn color="info" @click="onClearCapture">Clear Capture</v-btn>
     </div>
   </div>

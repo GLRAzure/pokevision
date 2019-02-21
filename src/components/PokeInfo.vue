@@ -1,6 +1,10 @@
 <template>
   <div>
-    <div v-show="img">Image received</div>
+    <div v-show="img">      
+      <figure class="figure">
+        <img :src="img" class="img-responsive">
+      </figure>
+    </div>
     <div v-if="topResponse">
       <div>Your Pokemon is {{topResponse.tagName}} ({{topResponse.probabilityShort}}%)</div>
       <div>all predictions:</div>
@@ -55,6 +59,11 @@ export default {
   watch: {
     img: async function(newVal) {
       console.log("watch:img");
+      if (!newVal) {
+        this.predictions = null;
+        this.topResponse = null;
+        return;
+      }
       const response = await client(dataURItoBlob(newVal));
       console.log("got response", response);
       if (response.predictions && response.predictions.length) {

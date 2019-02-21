@@ -7,10 +7,10 @@
       <v-spacer></v-spacer>
     </v-toolbar>
     <v-content>
-      <v-container>
-        <v-layout text-xs-center wrap>
+      <v-container fluid fill-height>
+         <v-layout  row wrap >
           <v-flex xs12>
-            <Capture @image-captured="onImageCaptured"/>
+            <Capture @image-captured="onImageCaptured" @image-cleared="onImageCleared"/>
           </v-flex>
         </v-layout>
         <PokeInfo v-bind:img="img"/>
@@ -38,6 +38,10 @@ export default {
     onImageCaptured: function(img) {
       console.log("app onImageCaptured");
       this.img = img;
+    },
+    onImageCleared: function() {
+      console.log("app onImageCleared");
+      this.img = null;
     }
   }
 };
