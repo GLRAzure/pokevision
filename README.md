@@ -1,4 +1,5 @@
 # pokevision
+[![Build status](https://andrejk.visualstudio.com/tech-olympics/_apis/build/status/tech-olympics-Node.js-CI)](https://andrejk.visualstudio.com/tech-olympics/_build/latest?definitionId=30)
 
 ## Project setup
 ```
