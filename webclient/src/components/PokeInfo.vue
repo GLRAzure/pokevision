@@ -19,11 +19,7 @@
 <script>
 import { getPredictionClient } from "../azureCustomVision";
 
-const client = getPredictionClient(
-  "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/",
-  "426cf8d2-6977-41a0-8752-40465286c030",
-  "e71d0537d82547179428f8a5397c4fac"
-);
+
 
 function dataURItoBlob(dataURI) {
     // convert base64/URLEncoded data component to raw binary data held in a string
@@ -64,6 +60,11 @@ export default {
         this.topResponse = null;
         return;
       }
+      const client = getPredictionClient(
+        "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/",
+        this.projectId,
+        "e71d0537d82547179428f8a5397c4fac"
+      );
       const response = await client(dataURItoBlob(newVal));
       console.log("got response", response);
       if (response.predictions && response.predictions.length) {
@@ -77,7 +78,7 @@ export default {
       }
     }
   },
-  props: ["img"]
+  props: ["img", "projectId"]
 };
 </script>
 

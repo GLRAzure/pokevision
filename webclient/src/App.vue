@@ -5,6 +5,23 @@
         <span>Poke-Vision</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
+        <v-subheader>project:</v-subheader>
+      <v-menu v-show="projects" :nudge-width="100">
+        <v-btn slot="activator">
+          <span>{{ curProject ? curProject.name : "Projects"}}</span>
+          <v-icon dark>arrow_drop_down</v-icon>
+        </v-btn>
+
+        <v-list>
+          <v-list-tile
+            v-for="project in projects"
+            :key="project.id"
+            @click="selectProject(project)"
+          >
+            <v-list-tile-title v-text="project.name"></v-list-tile-title>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
@@ -13,7 +30,7 @@
             <Capture @image-captured="onImageCaptured" @image-cleared="onImageCleared"/>
           </v-flex>
         </v-layout>
-        <PokeInfo v-bind:img="img"/>
+        <PokeInfo v-bind:img="img" v-bind:projectId="curProject && curProject.id"/>
       </v-container>
     </v-content>
   </v-app>
@@ -34,7 +51,8 @@ export default {
   data() {
     return {
       img: null,
-      projects: null
+      projects: null,
+      curProject: null
     };
   },
   methods: {
@@ -45,6 +63,10 @@ export default {
     onImageCleared: function() {
       console.log("app onImageCleared");
       this.img = null;
+    },
+    selectProject: function (newProject) {
+      console.log('selectProject', newProject);
+      this.curProject = newProject;
     }
   },
   created: async function() {
