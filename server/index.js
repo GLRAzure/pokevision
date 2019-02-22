@@ -21,6 +21,15 @@ app.get('/projects/:projectId/Tags', async (req,res) => {
   res.json(responseBody);
 });
 
+app.get('/config', (req,res) => {
+  const {CUSTOMVISION_PREDICTION_ENDPOINT, CUSTOMVISION_PREDICTION_KEY} = process.env;
+  const responseBody = {    
+      CUSTOMVISION_PREDICTION_ENDPOINT,
+      CUSTOMVISION_PREDICTION_KEY    
+  };
+  res.json(responseBody);
+});
+
 
 const port = process.env.PORT || 3000;
 

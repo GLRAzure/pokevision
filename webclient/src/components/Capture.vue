@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card v-show="inCaptureMode">
-      <v-card-media >
+      <v-responsive >
         <web-cam
           ref="webcam"
           :device-id="deviceId"
@@ -13,7 +13,7 @@
           @camera-change="onCameraChange"
 
         />            
-      </v-card-media>
+      </v-responsive>
       <v-card-actions class="text-xs-center">
         <v-spacer></v-spacer>
         <div v-show="this.devices.length > 0">

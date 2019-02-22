@@ -1,7 +1,13 @@
-export async function getProjects(apiUri) {
-  apiUri = apiUri || "https://techoapi.azurewebsites.net/"; // "http://localhost:3000/"
+const defaultApiUri = "http://localhost:3000/"; // "https://techoapi.azurewebsites.net/"; /
 
-  const result = await fetch(`${apiUri}projects`, { method: "GET" });
+export async function getProjects() {
+  const result = await fetch(`${defaultApiUri}projects`, { method: "GET" });
+  const body = result.json();
+  return body;
+}
+
+export async function getConfig() {
+  const result = await fetch(`${defaultApiUri}config`, { method: "GET" });
   const body = result.json();
   return body;
 }

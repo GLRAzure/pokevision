@@ -30,7 +30,10 @@
             <Capture @image-captured="onImageCaptured" @image-cleared="onImageCleared"/>
           </v-flex>
         </v-layout>
-        <PokeInfo v-bind:img="img" v-bind:projectId="curProject && curProject.id"/>
+        <PokeInfo v-bind:img="img" 
+          v-bind:projectId="curProject && curProject.id" 
+          v-bind:predictionUri="config && config.CUSTOMVISION_PREDICTION_ENDPOINT"
+          v-bind:predictionKey="config && config.CUSTOMVISION_PREDICTION_KEY" />
       </v-container>
     </v-content>
   </v-app>
@@ -40,7 +43,7 @@
 import Capture from "./components/Capture";
 import PokeInfo from "./components/PokeInfo";
 
-import { getProjects } from "./clientApi";
+import { getProjects, getConfig } from "./clientApi";
 
 export default {
   name: "App",
@@ -52,7 +55,8 @@ export default {
     return {
       img: null,
       projects: null,
-      curProject: null
+      curProject: null,
+      config: null
     };
   },
   methods: {
@@ -70,6 +74,8 @@ export default {
     }
   },
   created: async function() {
+    this.config = await getConfig();
+
     this.projects = await getProjects();
     if (this.projects) {
       this.curProject = this.projects[0];

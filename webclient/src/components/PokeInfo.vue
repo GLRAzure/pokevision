@@ -61,9 +61,9 @@ export default {
         return;
       }
       const client = getPredictionClient(
-        "https://southcentralus.api.cognitive.microsoft.com/customvision/v2.0/Prediction/",
+        this.predictionUri,
         this.projectId,
-        "e71d0537d82547179428f8a5397c4fac"
+        this.predictionKey
       );
       const response = await client(dataURItoBlob(newVal));
       console.log("got response", response);
@@ -78,7 +78,7 @@ export default {
       }
     }
   },
-  props: ["img", "projectId"]
+  props: ["img", "projectId", "predictionUri", "predictionKey"]
 };
 </script>
 
