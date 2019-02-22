@@ -8,7 +8,7 @@
     </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
-         <v-layout  row wrap >
+        <v-layout row wrap>
           <v-flex xs12>
             <Capture @image-captured="onImageCaptured" @image-cleared="onImageCleared"/>
           </v-flex>
@@ -23,6 +23,8 @@
 import Capture from "./components/Capture";
 import PokeInfo from "./components/PokeInfo";
 
+import { getProjects } from "./clientApi";
+
 export default {
   name: "App",
   components: {
@@ -31,7 +33,8 @@ export default {
   },
   data() {
     return {
-      img: null
+      img: null,
+      projects: null
     };
   },
   methods: {
@@ -43,6 +46,9 @@ export default {
       console.log("app onImageCleared");
       this.img = null;
     }
+  },
+  created: async function() {
+    this.projects = await getProjects();
   }
 };
 </script>
