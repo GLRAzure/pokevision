@@ -71,6 +71,9 @@ export default {
   },
   created: async function() {
     this.projects = await getProjects();
+    if (this.projects) {
+      this.curProject = this.projects[0];
+    }
   }
 };
 </script>
