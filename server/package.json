@@ -1,0 +1,24 @@
+{
+  "name": "pokevision-server",
+  "version": "1.0.0",
+  "description": "The pokevision-server provides API keys and connect info to the clients.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GLRAzure/pokevision.git"
+  },
+  "author": "Andrej Kyselica",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GLRAzure/pokevision/issues"
+  },
+  "homepage": "https://github.com/GLRAzure/pokevision#readme",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "node-fetch": "^2.3.0"
+  }
+}
