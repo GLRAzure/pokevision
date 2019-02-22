@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const fetch = require('node-fetch');
 const {getTrainingClient} = require('./azureCustomVisionTraining');
 
@@ -6,6 +7,7 @@ const {getTrainingClient} = require('./azureCustomVisionTraining');
 require('dotenv').config();
 
 const app = express();
+app.use(cors());
 
 const trClient = getTrainingClient(process.env.CUSTOMVISION_TRAINING_ENDPOINT, process.env.CUSTOMVISION_TRAINING_KEY);
 
