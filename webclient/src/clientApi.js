@@ -1,4 +1,4 @@
-const defaultApiUri = "http://localhost:3000/"; // "https://techoapi.azurewebsites.net/"; /
+const defaultApiUri = "https://techoapi.azurewebsites.net/"; //
 
 export async function getProjects() {
   const result = await fetch(`${defaultApiUri}projects`, { method: "GET" });
