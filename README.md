@@ -13,3 +13,17 @@ Webclient is a Vue.js based client for prediction against the Azure Custom Visio
 
 The pokevision-server provides API keys and connect info to the clients. It allows the client to enumerate projects and access
 connection info without injecting the Training Key into the client.
+
+## Lab Resources
+
+What is Custom Vision Service?: https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/home 
+
+Demo web client: https://techo.azurewebsites.net 
+
+Login username: techo2019@peteydemo.onmicrosoft.com 
+
+Tips:
+
+ - Make sure you have at least five images for each pokemon
+ - If you get an error, make sure you have trained your model and marked an iteration as default.
+ - Too many images may cause over-training

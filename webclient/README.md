@@ -28,3 +28,8 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+## TODO
+
+[ ] Better error message when prediction returns an error
+[ ] Remember the selected project on refresh
