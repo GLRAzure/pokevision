@@ -1,5 +1,8 @@
 <template>
   <div>
+    <v-alert v-if="error" :value="true" type="error">
+      Error: {{error.message}}
+    </v-alert>
     <div v-show="img">      
       <figure class="figure">
         <img :src="img" class="img-responsive">
@@ -11,8 +14,7 @@
       <div v-for="prediction in predictions">
         {{ prediction.tagName }} ({{prediction.probabilityShort }}%)
       </div>
-      </div>
-    
+    </div>    
   </div>
 </template>
 
@@ -49,11 +51,13 @@ export default {
   data: function() {
     return {
       topResponse: null,
-      predictions: null
+      predictions: null,
+      error: null
     };
   },
   watch: {
     img: async function(newVal) {
+      this.error = null;
       console.log("watch:img");
       if (!newVal) {
         this.predictions = null;
@@ -65,16 +69,25 @@ export default {
         this.projectId,
         this.predictionKey
       );
-      const response = await client(dataURItoBlob(newVal));
-      console.log("got response", response);
-      if (response.predictions && response.predictions.length) {
-        this.predictions = response.predictions
-          .sort((a,b) => b.probability - a.probability)
-          .map(p => ({ probabilityShort: toRoundedPercent(p.probability), ...p}));
-        console.log("getting top response");
-        const topResponse = this.predictions[0];
-        console.log("Top response:", topResponse);
-        this.topResponse = topResponse;
+      const result = await client(dataURItoBlob(newVal));
+      if (result.success) {
+        const response = result.data;
+        console.log("got response", result);
+        if (response.predictions && response.predictions.length) {
+          this.predictions = response.predictions
+            .sort((a,b) => b.probability - a.probability)
+            .map(p => ({ probabilityShort: toRoundedPercent(p.probability), ...p}));
+          console.log("getting top response");
+          const topResponse = this.predictions[0];
+          console.log("Top response:", topResponse);
+          this.topResponse = topResponse;
+        }
+      }
+      else 
+      {
+        this.predictions = null;
+        this.topResponse = null;
+        this.error = result.error;
       }
     }
   },

@@ -22,11 +22,14 @@ export function getPredictionClient(predictionEndpointUri, appId, predictionKey)
         body: image
       })
     );
-    // debugger;
-    if (response.status == 200) {
-      return await response.json();
-    } else {
-      throw new Error(response.statusText);
+    const success = response.status === 200;
+    const body = await response.json();
+    const result = {
+      success,
+      status: response.status,
+      data: success && body,
+      error: !success && body
     }
+    return result;
   };
 }
