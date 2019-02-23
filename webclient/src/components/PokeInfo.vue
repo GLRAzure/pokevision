@@ -57,11 +57,10 @@ export default {
   },
   watch: {
     img: async function(newVal) {
-      this.error = null;
-      console.log("watch:img");
       if (!newVal) {
         this.predictions = null;
         this.topResponse = null;
+        this.error = null;
         return;
       }
       const client = getPredictionClient(
@@ -72,14 +71,12 @@ export default {
       const result = await client(dataURItoBlob(newVal));
       if (result.success) {
         const response = result.data;
-        console.log("got response", result);
+        console.log("got response", response);
         if (response.predictions && response.predictions.length) {
           this.predictions = response.predictions
             .sort((a,b) => b.probability - a.probability)
             .map(p => ({ probabilityShort: toRoundedPercent(p.probability), ...p}));
-          console.log("getting top response");
           const topResponse = this.predictions[0];
-          console.log("Top response:", topResponse);
           this.topResponse = topResponse;
         }
       }
