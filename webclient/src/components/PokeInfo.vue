@@ -11,7 +11,7 @@
     <div v-if="topResponse">
       <div>Your Pokemon is {{topResponse.tagName}} ({{topResponse.probabilityShort}}%)</div>
       <div>all predictions:</div>
-      <div v-for="prediction in predictions">
+      <div v-for="prediction in predictions" v-bind:key="prediction.tagName">
         {{ prediction.tagName }} ({{prediction.probabilityShort }}%)
       </div>
     </div>    
