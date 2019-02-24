@@ -16,19 +16,19 @@ connection info without injecting the Training Key into the client.
 
 ## Lab Resources
 
-What is Custom Vision Service?: https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/home 
+What is Custom Vision Service?: https://docs.microsoft.com/en-us/azure/cognitive-services/custom-vision-service/home
 
-Demo web client: https://techo.azurewebsites.net 
+Demo web client: https://techo.azurewebsites.net
 
-Login username: techo2019@peteydemo.onmicrosoft.com 
+Login username: techo2019@peteydemo.onmicrosoft.com
 
 Tips:
 
- - Make sure you have at least five images for each pokemon
- - If you get an error, make sure you have trained your model and marked an iteration as default.
- - Too many images may cause over-training
-
+- Make sure you have at least five images for each pokemon
+- If you get an error, make sure you have trained your model and marked an iteration as default.
+- Too many images may cause over-training
 
 Future development ideas:
- - Create a centralized automated scoring service that rates each project against a set of test images.
- - Expand the web client to support training; scale imges to a reasonable size for uploading on slow networks
+
+- Create a centralized automated scoring service that rates each project against a set of test images.
+- Expand the web client to support training; scale imges to a reasonable size for uploading on slow networks
